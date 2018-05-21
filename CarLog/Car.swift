@@ -11,4 +11,8 @@ class Car {
     }
     
     func load() {}
+    
+    func addData(data: Data) {
+        print(data.mDistance, data.mFuel, data.mPrice)
+    }
 }
