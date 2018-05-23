@@ -23,7 +23,7 @@
                     <navigationItem key="navigationItem" id="OJ0-BS-lrz">
                         <barButtonItem key="rightBarButtonItem" title="Item" id="Tb7-6G-h3S">
                             <connections>
-                                <segue destination="LuG-7v-SMq" kind="show" id="xJD-gT-D8h"/>
+                                <action selector="addCost:" destination="BYZ-38-t0r" id="U7D-hI-C3Q"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -35,7 +35,7 @@
         <!--Type Value-->
         <scene sceneID="zMc-Lz-Wkr">
             <objects>
-                <viewController id="LuG-7v-SMq" customClass="TypeValue" customModule="CarLog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="typeValue" id="LuG-7v-SMq" customClass="TypeValue" customModule="CarLog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WOx-yS-RvD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
