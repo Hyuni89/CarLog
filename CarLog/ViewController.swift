@@ -3,15 +3,21 @@ import UIKit
 class ViewController: UIViewController {
     var car: Car?
     var addViewController: TypeValue?
+    var carListController: CarList?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         addViewController = storyboard?.instantiateViewController(withIdentifier: "typeValue") as? TypeValue
         addViewController?.delegate = self
+        carListController = storyboard?.instantiateViewController(withIdentifier: "carList") as? CarList
         
         car = Car()
     }
 
+    @IBAction func selectCar(_ sender: Any) {
+        self.navigationController?.pushViewController(carListController!, animated: true)
+    }
+    
     @IBAction func addCost(_ sender: Any) {
         self.navigationController?.pushViewController(addViewController!, animated: true)
     }
