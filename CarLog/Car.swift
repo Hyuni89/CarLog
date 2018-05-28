@@ -6,6 +6,7 @@ class Car {
     var mName: String = ""
     var mDistance: Int = -1
     var mAvgFuelEffic: Double = -1
+    var mYear: Int = -1
     var mLog: [Data]? = nil
     var entity: NSManagedObject?
     
