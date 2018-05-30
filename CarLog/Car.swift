@@ -14,6 +14,16 @@ class Car {
         load()
     }
     
+    init(name: String, dist: Int, year: Int, effi: Double) {
+        mName = name
+        mDistance = dist
+        mYear = year
+        mAvgFuelEffic = effi
+        
+        print("\(mName), \(mDistance), \(mYear), \(mAvgFuelEffic)")
+        load()
+    }
+    
     func load() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return

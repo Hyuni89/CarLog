@@ -8,7 +8,10 @@ extension CarList: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = carName[indexPath.row]
+        cell.textLabel?.text = cars[indexPath.row].mName
+//        cell.detailTextLabel?.isEnabled = true
+//        cell.detailTextLabel?.text = String(cars[indexPath.row].mDistance) + " " + String(cars[indexPath.row].mYear)
+//        cell.detailTextLabel?.textColor = UIColor.gray
         //TODO show cars info briefly
         
         return cell
@@ -18,11 +21,11 @@ extension CarList: UITableViewDataSource {
 class CarList: UIViewController {
     
     @IBOutlet weak var carListTableView: UITableView!
-    //TODO switch carName to cars
-    var carName: [String] = []
     var cars: [Car] = []
     
     override func viewDidLoad() {
+//        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "Cell")
+//        carListTableView.register(cell.classForCoder, forCellReuseIdentifier: "Cell")
         carListTableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         //TODO save and load cars data by CoreData
     }
@@ -31,9 +34,6 @@ class CarList: UIViewController {
         let alert = UIAlertController(title: "Please Type Car Info", message: "Car Name, Distance, Year are essential", preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Save", style: .default) {
             [unowned self] action in
-            guard let textField = alert.textFields?.first, let nameToSave = textField.text else {
-                return
-            }
             
             let carNameTextField = alert.textFields?[0]
             let carDistanceTextField = alert.textFields?[1]
@@ -54,8 +54,8 @@ class CarList: UIViewController {
             
             print("\(carNameTextField), \(carDistanceTextField), \(carYearTextField), \(carAverageEffTextField)")
             
-            //TODO append car info to cars array
-            self.carName.append(nameToSave)
+            let effi: Double = (carAverageEffTextField?.text)! == "" ? 0 : Double((carAverageEffTextField?.text)!)!
+            self.cars.append(Car(name: (carNameTextField?.text)!, dist: Int((carDistanceTextField?.text)!)!, year: Int((carYearTextField?.text)!)!, effi: effi))
             self.carListTableView.reloadData()
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .default)
