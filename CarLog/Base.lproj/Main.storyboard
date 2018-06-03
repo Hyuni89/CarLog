@@ -38,39 +38,62 @@
             <point key="canvasLocation" x="372" y="30.134932533733135"/>
         </scene>
         <!--Car List-->
-        <scene sceneID="4Pk-b5-Y4S">
+        <scene sceneID="dib-G3-x6w">
             <objects>
-                <viewController storyboardIdentifier="carList" id="Ihv-OK-rCU" customClass="CarList" customModule="CarLog" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Rvy-tU-5KK">
+                <tableViewController storyboardIdentifier="carList" id="X88-Vj-mWU" customClass="CarList" customModule="CarLog" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="x52-9L-moB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Y8U-gg-Bm9">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="Ihv-OK-rCU" id="pDV-O8-reV"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="cjm-Sg-PY0"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Z4w-l7-ME1">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="r7X-69-Z0l">
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableViewCell" rowHeight="88" id="Gui-tX-VyU" customClass="TableViewCell" customModule="CarLog" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="88"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Gui-tX-VyU" id="HVe-w0-E00">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="87.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8SJ-fl-YVJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fVF-1o-SAy">
+                                            <rect key="frame" x="0.0" y="56" width="375" height="20.500000000000057"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="mainText" destination="8SJ-fl-YVJ" id="heG-Ak-wrN"/>
+                                    <outlet property="subText" destination="fVF-1o-SAy" id="6lk-Pe-fRK"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="X88-Vj-mWU" id="6GL-7f-pbT"/>
+                            <outlet property="delegate" destination="X88-Vj-mWU" id="iwS-DQ-QaT"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Weo-ar-HI1">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="sTu-th-KOK">
                             <connections>
-                                <action selector="addCar:" destination="Ihv-OK-rCU" id="vf7-g9-CFP"/>
+                                <action selector="addCar:" destination="X88-Vj-mWU" id="6Kz-9f-d6L"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="carListTableView" destination="Y8U-gg-Bm9" id="zBq-1P-nnY"/>
+                        <outlet property="carListTableView" destination="x52-9L-moB" id="kIJ-hA-0gX"/>
                     </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bCV-Dw-evR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bP4-i9-lRG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1575.2" y="525.78710644677665"/>
+            <point key="canvasLocation" x="1448.8" y="592.35382308845578"/>
         </scene>
         <!--Type Value-->
         <scene sceneID="zMc-Lz-Wkr">
@@ -163,22 +186,22 @@
             <point key="canvasLocation" x="-465" y="30"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="KpN-H2-8tg">
+        <scene sceneID="IJp-gF-6Qo">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9ia-8A-hu0" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hh9-ya-57n" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="osZ-4V-plK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5fc-fc-EQ8">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Ihv-OK-rCU" kind="relationship" relationship="rootViewController" id="ucA-MN-I9s"/>
+                        <segue destination="X88-Vj-mWU" kind="relationship" relationship="rootViewController" id="Ucz-tH-Z2k"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BCF-h0-KgH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NUh-Vz-tOK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="631" y="747"/>
+            <point key="canvasLocation" x="506" y="824"/>
         </scene>
     </scenes>
 </document>

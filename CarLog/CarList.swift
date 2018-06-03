@@ -1,33 +1,45 @@
 import Foundation
 import UIKit
 
-extension CarList: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cars.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = cars[indexPath.row].mName
-//        cell.detailTextLabel?.isEnabled = true
-//        cell.detailTextLabel?.text = String(cars[indexPath.row].mDistance) + " " + String(cars[indexPath.row].mYear)
-//        cell.detailTextLabel?.textColor = UIColor.gray
-        //TODO show cars info briefly
-        
-        return cell
-    }
-}
-
-class CarList: UIViewController {
+class CarList: UITableViewController {
     
     @IBOutlet weak var carListTableView: UITableView!
     var cars: [Car] = []
     
     override func viewDidLoad() {
-//        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "Cell")
-//        carListTableView.register(cell.classForCoder, forCellReuseIdentifier: "Cell")
-        carListTableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        carListTableView.delegate = self
+        carListTableView.dataSource = self
+//        carListTableView.register(tableViewCell.self, forCellReuseIdentifier: "tableViewCell")
         //TODO save and load cars data by CoreData
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return cars.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath) as? TableViewCell else {
+            fatalError("Error unwrapping tableViewCell")
+        }
+        
+        cell.mainText?.text = cars[indexPath.row].mName
+        cell.subText?.text = "Dist " + String(cars[indexPath.row].mDistance) + ", Year " + String(cars[indexPath.row].mYear)
+        cell.subText?.textColor = UIColor.gray
+        
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            cars.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
+    func log() {
+        for i in cars {
+            print(i.mName)
+        }
     }
     
     @IBAction func addCar(_ sender: Any) {
@@ -81,3 +93,4 @@ class CarList: UIViewController {
         present(alert, animated: true)
     }
 }
+
