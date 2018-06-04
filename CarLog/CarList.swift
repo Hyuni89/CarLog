@@ -9,12 +9,23 @@ extension CarList: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.textLabel?.text = cars[indexPath.row].mName
-//        cell.detailTextLabel?.isEnabled = true
-//        cell.detailTextLabel?.text = String(cars[indexPath.row].mDistance) + " " + String(cars[indexPath.row].mYear)
-//        cell.detailTextLabel?.textColor = UIColor.gray
         //TODO show cars info briefly
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if UserDefaults.standard.object(forKey: "DefaultCar") as? String == cars[indexPath.row].mName {
+                let alert = UIAlertController(title: "Can't Delete", message: "This is Default Car", preferredStyle: .alert)
+                let confirm = UIAlertAction(title: "Confirm", style: .default)
+                alert.addAction(confirm)
+                present(alert, animated: true)
+            } else {
+                cars.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
     }
 }
 
@@ -24,10 +35,21 @@ class CarList: UIViewController {
     var cars: [Car] = []
     
     override func viewDidLoad() {
-//        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "Cell")
-//        carListTableView.register(cell.classForCoder, forCellReuseIdentifier: "Cell")
         carListTableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        title = "Add Car"
         //TODO save and load cars data by CoreData
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let defualtCar = UserDefaults.standard.object(forKey: "DefualtCar")
+        if defualtCar == nil && cars.count == 0 {
+            let alert = UIAlertController(title: "Add First Car", message: "At least One Car needed", preferredStyle: .alert)
+            let confirm = UIAlertAction(title: "Confirm", style: .default)
+            alert.addAction(confirm)
+            present(alert, animated: true)
+        }
     }
     
     @IBAction func addCar(_ sender: Any) {
@@ -57,6 +79,11 @@ class CarList: UIViewController {
             let effi: Double = (carAverageEffTextField?.text)! == "" ? 0 : Double((carAverageEffTextField?.text)!)!
             self.cars.append(Car(name: (carNameTextField?.text)!, dist: Int((carDistanceTextField?.text)!)!, year: Int((carYearTextField?.text)!)!, effi: effi))
             self.carListTableView.reloadData()
+            
+            let defaultCar = UserDefaults.standard.object(forKey: "DefaultCar")
+            if defaultCar == nil {
+                UserDefaults.standard.set((carNameTextField?.text)!, forKey: "DefaultCar")
+            }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .default)
         

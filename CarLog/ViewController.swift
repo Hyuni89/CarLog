@@ -13,6 +13,16 @@ class ViewController: UIViewController {
         
         car = Car()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let defaultCar = UserDefaults.standard.object(forKey: "DefaultCar")
+        print(defaultCar)
+        if defaultCar == nil {
+            self.navigationController?.pushViewController(carListController!, animated: true)
+        }
+    }
 
     @IBAction func selectCar(_ sender: Any) {
         self.navigationController?.pushViewController(carListController!, animated: true)
