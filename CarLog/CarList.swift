@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import CoreData
 
 extension CarList: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -8,7 +9,7 @@ extension CarList: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = cars[indexPath.row].mName
+        cell.textLabel?.text = cars[indexPath.row].value(forKeyPath: "name") as? String
         //TODO show cars info briefly
         
         return cell
@@ -16,12 +17,13 @@ extension CarList: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if UserDefaults.standard.object(forKey: "DefaultCar") as? String == cars[indexPath.row].mName {
+            if UserDefaults.standard.object(forKey: "DefaultCar") as? String == cars[indexPath.row].value(forKeyPath: "name") as? String {
                 let alert = UIAlertController(title: "Can't Delete", message: "This is Default Car", preferredStyle: .alert)
                 let confirm = UIAlertAction(title: "Confirm", style: .default)
                 alert.addAction(confirm)
                 present(alert, animated: true)
             } else {
+                CarListHandler.getInstance.deleteData(name: (cars[indexPath.row].value(forKeyPath: "name") as? String)!, year: (cars[indexPath.row].value(forKeyPath: "year") as? Int)!)
                 cars.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
@@ -32,7 +34,7 @@ extension CarList: UITableViewDataSource {
 class CarList: UIViewController {
     
     @IBOutlet weak var carListTableView: UITableView!
-    var cars: [Car] = []
+    var cars: [NSManagedObject] = []
     
     override func viewDidLoad() {
         carListTableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
@@ -42,6 +44,7 @@ class CarList: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        cars = CarListHandler.getInstance.getList()
         
         let defualtCar = UserDefaults.standard.object(forKey: "DefualtCar")
         if defualtCar == nil && cars.count == 0 {
@@ -77,12 +80,14 @@ class CarList: UIViewController {
             print("\(carNameTextField), \(carDistanceTextField), \(carYearTextField), \(carAverageEffTextField)")
             
             let effi: Double = (carAverageEffTextField?.text)! == "" ? 0 : Double((carAverageEffTextField?.text)!)!
-            self.cars.append(Car(name: (carNameTextField?.text)!, dist: Int((carDistanceTextField?.text)!)!, year: Int((carYearTextField?.text)!)!, effi: effi))
+            CarListHandler.getInstance.saveData(name: (carNameTextField?.text)!, distance: Int((carDistanceTextField?.text)!)!, year: Int((carYearTextField?.text)!)!, effi: effi)
+            self.cars = CarListHandler.getInstance.getList()
             self.carListTableView.reloadData()
             
             let defaultCar = UserDefaults.standard.object(forKey: "DefaultCar")
             if defaultCar == nil {
                 UserDefaults.standard.set((carNameTextField?.text)!, forKey: "DefaultCar")
+                UserDefaults.standard.set(Int((carYearTextField?.text!)!)!, forKey: "DefaultYear")
             }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .default)

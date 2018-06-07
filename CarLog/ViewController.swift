@@ -10,8 +10,6 @@ class ViewController: UIViewController {
         addViewController = storyboard?.instantiateViewController(withIdentifier: "typeValue") as? TypeValue
         addViewController?.delegate = self
         carListController = storyboard?.instantiateViewController(withIdentifier: "carList") as? CarList
-        
-        car = Car()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -22,6 +20,7 @@ class ViewController: UIViewController {
         if defaultCar == nil {
             self.navigationController?.pushViewController(carListController!, animated: true)
         }
+        car = Car()
     }
 
     @IBAction func selectCar(_ sender: Any) {
