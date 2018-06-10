@@ -4,13 +4,11 @@ import UIKit
 
 class CarListHandler {
     static let getInstance = CarListHandler()
-    var appDelegate: AppDelegate?
-    var context: NSManagedObjectContext?
     var entity: NSEntityDescription?
+    var context: NSManagedObjectContext?
     
     private init() {
-        appDelegate = UIApplication.shared.delegate as? AppDelegate
-        context = appDelegate?.persistentContainer.viewContext
+        context = CoreDataHandler.getInstance.context
         entity = NSEntityDescription.entity(forEntityName: "CarListData", in: context!)!
     }
     
