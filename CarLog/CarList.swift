@@ -2,15 +2,27 @@ import Foundation
 import UIKit
 import CoreData
 
-extension CarList: UITableViewDataSource {
+extension CarList: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cars.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        cell.translatesAutoresizingMaskIntoConstraints = false
         cell.textLabel?.text = cars[indexPath.row].value(forKeyPath: "name") as? String
         //TODO show cars info briefly
+        
+        if cell.textLabel?.text == UserDefaults.standard.object(forKey: "DefaultCar") as? String {
+            let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 100))
+            label.text = "Default"
+            label.textColor = UIColor.red
+            cell.contentView.addSubview(label)
+            
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor).isActive = true
+            label.trailingAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.trailingAnchor).isActive = true
+        }
         
         return cell
     }
@@ -29,6 +41,34 @@ extension CarList: UITableViewDataSource {
             }
         }
     }
+    
+//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//        print("call")
+//        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+//            print("del")
+//        }
+//        let edit = UITableViewRowAction(style: .default, title: "Edit") { (action, indexPath) in
+//            print("edit")
+//        }
+//
+//        return [delete, edit]
+//    }
+//
+//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
+    
+//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        let delete = UIContextualAction(style: .destructive, title: "Delete") {(action, view, completion) in
+//            print("delete")
+//            completion(true)
+//        }
+//        let edit = UIContextualAction(style: .normal, title: "Edit") {(action, view, completion) in
+//            print("edit")
+//            completion(true)
+//        }
+//        return UISwipeActionsConfiguration(actions: [delete, edit])
+//    }
 }
 
 class CarList: UIViewController {
@@ -38,6 +78,11 @@ class CarList: UIViewController {
     
     override func viewDidLoad() {
         carListTableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        carListTableView.translatesAutoresizingMaskIntoConstraints = false
+        carListTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        carListTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        carListTableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        carListTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         title = "Add Car"
         //TODO save and load cars data by CoreData
     }
