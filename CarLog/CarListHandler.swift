@@ -12,13 +12,7 @@ class CarListHandler {
         entity = NSEntityDescription.entity(forEntityName: "CarListData", in: context!)!
     }
     
-    func saveData(name: String, distance: Int, year: Int, effi: Double) {
-        let car = NSManagedObject(entity: entity!, insertInto: context!)
-        car.setValue(name, forKeyPath: "name")
-        car.setValue(distance, forKeyPath: "distance")
-        car.setValue(year, forKeyPath: "year")
-        car.setValue(effi, forKey: "efficience")
-        
+    func save() {
         do {
             try context?.save()
         } catch let error as NSError {
@@ -26,15 +20,21 @@ class CarListHandler {
         }
     }
     
+    func saveData(name: String, distance: Int, year: Int, effi: Double) {
+        let car = NSManagedObject(entity: entity!, insertInto: context!)
+        car.setValue(name, forKeyPath: "name")
+        car.setValue(distance, forKeyPath: "distance")
+        car.setValue(year, forKeyPath: "year")
+        car.setValue(effi, forKeyPath: "efficience")
+        
+        save()
+    }
+    
     func deleteData(name: String, year: Int) {
         let car = getCar(name: name, year: year)
+        context?.delete(car)
 
-        do {
-            context?.delete(car)
-            try context?.save()
-        } catch let error as NSError {
-            print("Could not Save. \(error), \(error.userInfo)")
-        }
+        save()
     }
     
     func getList() -> [NSManagedObject] {

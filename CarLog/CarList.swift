@@ -2,89 +2,39 @@ import Foundation
 import UIKit
 import CoreData
 
-extension CarList: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cars.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.translatesAutoresizingMaskIntoConstraints = false
-        cell.textLabel?.text = cars[indexPath.row].value(forKeyPath: "name") as? String
-        //TODO show cars info briefly
-        
-        if cell.textLabel?.text == UserDefaults.standard.object(forKey: "DefaultCar") as? String {
-            let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 100))
-            label.text = "Default"
-            label.textColor = UIColor.red
-            cell.contentView.addSubview(label)
-            
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor).isActive = true
-            label.trailingAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.trailingAnchor).isActive = true
-        }
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            if UserDefaults.standard.object(forKey: "DefaultCar") as? String == cars[indexPath.row].value(forKeyPath: "name") as? String {
-                let alert = UIAlertController(title: "Can't Delete", message: "This is Default Car", preferredStyle: .alert)
-                let confirm = UIAlertAction(title: "Confirm", style: .default)
-                alert.addAction(confirm)
-                present(alert, animated: true)
-            } else {
-                CarListHandler.getInstance.deleteData(name: (cars[indexPath.row].value(forKeyPath: "name") as? String)!, year: (cars[indexPath.row].value(forKeyPath: "year") as? Int)!)
-                cars.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
-        }
-    }
-    
-//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//        print("call")
-//        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
-//            print("del")
-//        }
-//        let edit = UITableViewRowAction(style: .default, title: "Edit") { (action, indexPath) in
-//            print("edit")
-//        }
-//
-//        return [delete, edit]
-//    }
-//
-//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-//        return true
-//    }
-    
-//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//        let delete = UIContextualAction(style: .destructive, title: "Delete") {(action, view, completion) in
-//            print("delete")
-//            completion(true)
-//        }
-//        let edit = UIContextualAction(style: .normal, title: "Edit") {(action, view, completion) in
-//            print("edit")
-//            completion(true)
-//        }
-//        return UISwipeActionsConfiguration(actions: [delete, edit])
-//    }
-}
-
-class CarList: UIViewController {
+class CarList: UITableViewController {
     
     @IBOutlet weak var carListTableView: UITableView!
     var cars: [NSManagedObject] = []
     
     override func viewDidLoad() {
-        carListTableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        carListTableView.translatesAutoresizingMaskIntoConstraints = false
-        carListTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        carListTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        carListTableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        carListTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         title = "Add Car"
-        //TODO save and load cars data by CoreData
+        
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(CarList.longPress(longPressGestureRecognizer:)))
+        self.carListTableView.addGestureRecognizer(longPressRecognizer)
+    }
+    
+    @objc func longPress(longPressGestureRecognizer: UILongPressGestureRecognizer) {
+        if longPressGestureRecognizer.state == UIGestureRecognizerState.began {
+            let touchPoint = longPressGestureRecognizer.location(in: self.view)
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                let alert = UIAlertController(title: "Are you sure to change default car?", message: nil, preferredStyle: .alert)
+                let confirm = UIAlertAction(title: "Confirm", style: .default) {action in
+                    let name = self.cars[indexPath.row].value(forKeyPath: "name")
+                    let year = self.cars[indexPath.row].value(forKeyPath: "year")
+                    
+                    UserDefaults.standard.set(name, forKey: "DefaultCar")
+                    UserDefaults.standard.set(year, forKey: "DefaultYear")
+                    self.carListTableView.reloadData()
+                }
+                let cancel = UIAlertAction(title: "Cancel", style: .default)
+                
+                alert.addAction(confirm)
+                alert.addAction(cancel)
+                
+                present(alert, animated: true)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -122,8 +72,6 @@ class CarList: UIViewController {
                 return
             }
             
-            print("\(carNameTextField), \(carDistanceTextField), \(carYearTextField), \(carAverageEffTextField)")
-            
             let effi: Double = (carAverageEffTextField?.text)! == "" ? 0 : Double((carAverageEffTextField?.text)!)!
             CarListHandler.getInstance.saveData(name: (carNameTextField?.text)!, distance: Int((carDistanceTextField?.text)!)!, year: Int((carYearTextField?.text)!)!, effi: effi)
             self.cars = CarListHandler.getInstance.getList()
@@ -156,5 +104,92 @@ class CarList: UIViewController {
         alert.addAction(cancelAction)
         
         present(alert, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return cars.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "carListCell", for: indexPath) as! CarListCell
+        let name = cars[indexPath.row].value(forKeyPath: "name") as! String
+        let info = """
+        [\(String(describing: cars[indexPath.row].value(forKeyPath: "year")!))][\(String(describing: cars[indexPath.row].value(forKeyPath: "distance")!)) Km]
+        """
+        
+        if name == UserDefaults.standard.object(forKey: "DefaultCar") as! String {
+            cell.setting(name: name, info: info, isDefault: true)
+        } else {
+            cell.setting(name: name, info: info, isDefault: false)
+        }
+        
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            if UserDefaults.standard.object(forKey: "DefaultCar") as? String == self.cars[indexPath.row].value(forKeyPath: "name") as? String {
+                let alert = UIAlertController(title: "Can't Delete", message: "This is Default Car", preferredStyle: .alert)
+                let confirm = UIAlertAction(title: "Confirm", style: .default)
+                alert.addAction(confirm)
+                self.present(alert, animated: true)
+            } else {
+                CarListHandler.getInstance.deleteData(name: (self.cars[indexPath.row].value(forKeyPath: "name") as? String)!, year: (self.cars[indexPath.row].value(forKeyPath: "year") as? Int)!)
+                self.cars.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
+        let edit = UITableViewRowAction(style: .default, title: "Edit") { (action, indexPath) in
+            let alert = UIAlertController(title: "Edit Car Info", message: "Type if you want to edit field", preferredStyle: .alert)
+            let editAction = UIAlertAction(title: "Edit", style: .default) {
+                [unowned self] action in
+                
+                let carNameTextField = alert.textFields?[0]
+                let carDistanceTextField = alert.textFields?[1]
+                let carYearTextField = alert.textFields?[2]
+                let carAverageEffTextField = alert.textFields?[3]
+                
+                let effi: Double = (carAverageEffTextField?.text)! == "" ? 0 : Double((carAverageEffTextField?.text)!)!
+                if carNameTextField?.text != "" {
+                    self.cars[indexPath.row].setValue(carNameTextField?.text, forKeyPath: "name")
+                }
+                if carDistanceTextField?.text != "" {
+                    self.cars[indexPath.row].setValue(Double((carDistanceTextField?.text)!)!, forKeyPath: "distance")
+                }
+                if carYearTextField?.text != "" {
+                    self.cars[indexPath.row].setValue(Int((carYearTextField?.text)!)!, forKeyPath: "year")
+                }
+                if effi != 0 {
+                    self.cars[indexPath.row].setValue(effi, forKeyPath: "efficience")
+                }
+                
+                CarListHandler.getInstance.save()
+                self.carListTableView.reloadData()
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .default)
+            
+            alert.addTextField(configurationHandler: {(textField) in
+                textField.placeholder = self.cars[indexPath.row].value(forKeyPath: "name") as? String
+            })
+            alert.addTextField(configurationHandler: {(textField) in
+                textField.placeholder = String(describing: self.cars[indexPath.row].value(forKeyPath: "distance")!)
+                textField.keyboardType = .numberPad
+            })
+            alert.addTextField(configurationHandler: {(textField) in
+                textField.placeholder = String(describing: self.cars[indexPath.row].value(forKeyPath: "year")!)
+                textField.keyboardType = .numberPad
+            })
+            alert.addTextField(configurationHandler: {(textField) in
+                textField.placeholder = String(describing: self.cars[indexPath.row].value(forKeyPath: "efficience")!)
+                textField.keyboardType = .decimalPad
+            })
+            alert.addAction(editAction)
+            alert.addAction(cancelAction)
+            
+            self.present(alert, animated: true)
+        }
+        edit.backgroundColor = UIColor.blue
+        
+        return [delete, edit]
     }
 }
