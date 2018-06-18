@@ -6,23 +6,42 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Data Source-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CarLog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XfE-Ke-BH2" customClass="FSCalendar">
+                                <rect key="frame" x="0.0" y="64" width="375" height="282"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="XfE-Ke-BH2" secondAttribute="height" multiplier="125:94" id="Kby-qe-zh0"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="bO4-L4-w4C"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="ibZ-g1-Tha"/>
+                                </connections>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="XfE-Ke-BH2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="1Su-PO-ZPR"/>
+                            <constraint firstItem="XfE-Ke-BH2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="AQA-NL-W2V"/>
+                            <constraint firstItem="XfE-Ke-BH2" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="I0Q-rD-rsM"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="OJ0-BS-lrz">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="EbW-F6-KX7">
+                        <barButtonItem key="leftBarButtonItem" title="Item" style="plain" id="EbW-F6-KX7">
                             <connections>
                                 <action selector="selectCar:" destination="BYZ-38-t0r" id="nMc-Ho-NZj"/>
                             </connections>
@@ -33,6 +52,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="calendar" destination="XfE-Ke-BH2" id="yj7-7Y-Rvh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

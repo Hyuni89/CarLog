@@ -152,12 +152,14 @@ class CarList: UITableViewController {
                 let effi: Double = (carAverageEffTextField?.text)! == "" ? 0 : Double((carAverageEffTextField?.text)!)!
                 if carNameTextField?.text != "" {
                     self.cars[indexPath.row].setValue(carNameTextField?.text, forKeyPath: "name")
+                    UserDefaults.standard.set(carNameTextField?.text, forKey: "DefaultCar")
                 }
                 if carDistanceTextField?.text != "" {
                     self.cars[indexPath.row].setValue(Double((carDistanceTextField?.text)!)!, forKeyPath: "distance")
                 }
                 if carYearTextField?.text != "" {
                     self.cars[indexPath.row].setValue(Int((carYearTextField?.text)!)!, forKeyPath: "year")
+                    UserDefaults.standard.set(carYearTextField?.text, forKey: "DefaultYear")
                 }
                 if effi != 0 {
                     self.cars[indexPath.row].setValue(effi, forKeyPath: "efficience")

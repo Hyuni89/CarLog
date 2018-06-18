@@ -1,10 +1,14 @@
 import UIKit
 
+extension ViewController: FSCalendarDelegate, FSCalendarDataSource {
+}
+
 class ViewController: UIViewController {
     var car: Car?
     var addViewController: TypeValue?
     var carListController: CarList?
-
+    @IBOutlet weak var calendar: FSCalendar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addViewController = storyboard?.instantiateViewController(withIdentifier: "typeValue") as? TypeValue
@@ -21,6 +25,7 @@ class ViewController: UIViewController {
             self.navigationController?.pushViewController(carListController!, animated: true)
         }
         car = Car()
+        self.calendar.setCurrentPage(Date(), animated: false)
     }
 
     @IBAction func selectCar(_ sender: Any) {
