@@ -25,6 +25,9 @@
 		983430DF20D7DE2D00A2D82A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 983430CE20D7DE2D00A2D82A /* Info.plist */; };
 		983430E020D7DE2D00A2D82A /* FSCalendarAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 983430CF20D7DE2D00A2D82A /* FSCalendarAppearance.m */; };
 		9847EB5120C95F3300423BE8 /* CarListHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9847EB5020C95F3300423BE8 /* CarListHandler.swift */; };
+		98738F1620D93A6D00828A7C /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98738F1520D93A6D00828A7C /* DayView.swift */; };
+		98738F1820D9404400828A7C /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98738F1720D9404400828A7C /* MonthView.swift */; };
+		98738F1A20D9406C00828A7C /* YearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98738F1920D9406C00828A7C /* YearView.swift */; };
 		9899321A20B156DC007E2F43 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9899321920B156DC007E2F43 /* AppDelegate.swift */; };
 		9899321C20B156DC007E2F43 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9899321B20B156DC007E2F43 /* ViewController.swift */; };
 		9899321F20B156DC007E2F43 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9899321D20B156DC007E2F43 /* Main.storyboard */; };
@@ -76,6 +79,9 @@
 		983430CF20D7DE2D00A2D82A /* FSCalendarAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarAppearance.m; sourceTree = "<group>"; };
 		983430E120D7E33500A2D82A /* Objc-Bridge-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Objc-Bridge-Header.h"; sourceTree = "<group>"; };
 		9847EB5020C95F3300423BE8 /* CarListHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarListHandler.swift; sourceTree = "<group>"; };
+		98738F1520D93A6D00828A7C /* DayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
+		98738F1720D9404400828A7C /* MonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
+		98738F1920D9406C00828A7C /* YearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearView.swift; sourceTree = "<group>"; };
 		9899321620B156DC007E2F43 /* CarLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9899321920B156DC007E2F43 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9899321B20B156DC007E2F43 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -180,6 +186,9 @@
 				989EC87520CD013100418488 /* CoreDataHandler.swift */,
 				989EC87720CD389900418488 /* CarDataHandler.swift */,
 				989D54BF20D0EF8E00776829 /* CarListCell.swift */,
+				98738F1520D93A6D00828A7C /* DayView.swift */,
+				98738F1720D9404400828A7C /* MonthView.swift */,
+				98738F1920D9406C00828A7C /* YearView.swift */,
 			);
 			path = CarLog;
 			sourceTree = "<group>";
@@ -260,9 +269,11 @@
 				9899323120B16591007E2F43 /* TypeValue.swift in Sources */,
 				983430D220D7DE2D00A2D82A /* FSCalendarDelegationFactory.m in Sources */,
 				983430D820D7DE2D00A2D82A /* FSCalendarWeekdayView.m in Sources */,
+				98738F1820D9404400828A7C /* MonthView.swift in Sources */,
 				983430E020D7DE2D00A2D82A /* FSCalendarAppearance.m in Sources */,
 				983430DA20D7DE2D00A2D82A /* FSCalendar+Deprecated.m in Sources */,
 				983430D920D7DE2D00A2D82A /* FSCalendarExtensions.m in Sources */,
+				98738F1A20D9406C00828A7C /* YearView.swift in Sources */,
 				989EC87620CD013100418488 /* CoreDataHandler.swift in Sources */,
 				983430DE20D7DE2D00A2D82A /* FSCalendarTransitionCoordinator.m in Sources */,
 				98C99B6620B2ADD500D0439A /* Data.swift in Sources */,
@@ -278,6 +289,7 @@
 				983430D620D7DE2D00A2D82A /* FSCalendarCollectionViewLayout.m in Sources */,
 				983430D720D7DE2D00A2D82A /* FSCalendarScopeHandle.m in Sources */,
 				989D54C020D0EF8E00776829 /* CarListCell.swift in Sources */,
+				98738F1620D93A6D00828A7C /* DayView.swift in Sources */,
 				983430DB20D7DE2D00A2D82A /* FSCalendarConstants.m in Sources */,
 				983430D520D7DE2D00A2D82A /* FSCalendar.m in Sources */,
 				983430DD20D7DE2D00A2D82A /* FSCalendarHeaderView.m in Sources */,

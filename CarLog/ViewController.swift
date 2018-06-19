@@ -1,13 +1,35 @@
 import UIKit
 
-extension ViewController: FSCalendarDelegate, FSCalendarDataSource {
-}
-
 class ViewController: UIViewController {
     var car: Car?
     var addViewController: TypeValue?
     var carListController: CarList?
-    @IBOutlet weak var calendar: FSCalendar!
+    @IBOutlet weak var dayView: UIView!
+    @IBOutlet weak var monthView: UIView!
+    @IBOutlet weak var yearView: UIView!
+    
+    @IBAction func changeView(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            dayView.isHidden = false
+            monthView.isHidden = true
+            yearView.isHidden = true
+            print("1segment")
+        case 1:
+            dayView.isHidden = true
+            monthView.isHidden = false
+            yearView.isHidden = true
+            print("2segment")
+        case 2:
+            dayView.isHidden = true
+            monthView.isHidden = true
+            yearView.isHidden = false
+            print("3segment")
+        default:
+            print("Error")
+            break
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +47,6 @@ class ViewController: UIViewController {
             self.navigationController?.pushViewController(carListController!, animated: true)
         }
         car = Car()
-        self.calendar.setCurrentPage(Date(), animated: false)
     }
 
     @IBAction func selectCar(_ sender: Any) {

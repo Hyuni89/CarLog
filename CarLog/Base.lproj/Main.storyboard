@@ -12,7 +12,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Data Source-->
+        <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CarLog" customModuleProvider="target" sceneMemberID="viewController">
@@ -20,23 +20,52 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XfE-Ke-BH2" customClass="FSCalendar">
-                                <rect key="frame" x="0.0" y="64" width="375" height="282"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="XfE-Ke-BH2" secondAttribute="height" multiplier="125:94" id="Kby-qe-zh0"/>
-                                </constraints>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="XOB-7W-aa7">
+                                <rect key="frame" x="106.5" y="64" width="161" height="29"/>
+                                <segments>
+                                    <segment title="Day"/>
+                                    <segment title="Month"/>
+                                    <segment title="Year"/>
+                                </segments>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="bO4-L4-w4C"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="ibZ-g1-Tha"/>
+                                    <action selector="changeView:" destination="BYZ-38-t0r" eventType="valueChanged" id="rdO-RP-0Gf"/>
                                 </connections>
-                            </view>
+                            </segmentedControl>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rgp-9P-Tme">
+                                <rect key="frame" x="0.0" y="100" width="375" height="567"/>
+                                <connections>
+                                    <segue destination="Nux-FM-ZLc" kind="embed" id="H9e-S3-sO1"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1mL-7s-TRP">
+                                <rect key="frame" x="0.0" y="100" width="375" height="567"/>
+                                <connections>
+                                    <segue destination="xUY-ex-E81" kind="embed" id="f7H-qY-Idm"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pSr-A8-Cj1">
+                                <rect key="frame" x="0.0" y="100" width="375" height="567"/>
+                                <connections>
+                                    <segue destination="Hdo-Of-JFa" kind="embed" id="oOD-HL-zUR"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="XfE-Ke-BH2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="1Su-PO-ZPR"/>
-                            <constraint firstItem="XfE-Ke-BH2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="AQA-NL-W2V"/>
-                            <constraint firstItem="XfE-Ke-BH2" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="I0Q-rD-rsM"/>
+                            <constraint firstItem="1mL-7s-TRP" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="1qM-q5-okR"/>
+                            <constraint firstItem="pSr-A8-Cj1" firstAttribute="top" secondItem="XOB-7W-aa7" secondAttribute="bottom" constant="8" id="8Cf-JL-Yz2"/>
+                            <constraint firstItem="1mL-7s-TRP" firstAttribute="top" secondItem="XOB-7W-aa7" secondAttribute="bottom" constant="8" id="BOL-h1-eft"/>
+                            <constraint firstItem="pSr-A8-Cj1" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="IIn-du-o9c"/>
+                            <constraint firstItem="1mL-7s-TRP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="IOz-GS-lbs"/>
+                            <constraint firstItem="Rgp-9P-Tme" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Kf7-SU-n0T"/>
+                            <constraint firstItem="XOB-7W-aa7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Kg8-oh-XcX"/>
+                            <constraint firstItem="pSr-A8-Cj1" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="LW7-NM-4aX"/>
+                            <constraint firstItem="XOB-7W-aa7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="PkM-1g-DND"/>
+                            <constraint firstItem="Rgp-9P-Tme" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="TI0-9A-Bzt"/>
+                            <constraint firstItem="1mL-7s-TRP" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="e9k-bv-MgU"/>
+                            <constraint firstItem="pSr-A8-Cj1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sRu-TY-gA7"/>
+                            <constraint firstItem="Rgp-9P-Tme" firstAttribute="top" secondItem="XOB-7W-aa7" secondAttribute="bottom" constant="8" id="vO9-zN-lIC"/>
+                            <constraint firstItem="Rgp-9P-Tme" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="vd6-DQ-8sX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -53,7 +82,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="calendar" destination="XfE-Ke-BH2" id="yj7-7Y-Rvh"/>
+                        <outlet property="dayView" destination="pSr-A8-Cj1" id="LcR-Q1-o2Z"/>
+                        <outlet property="monthView" destination="1mL-7s-TRP" id="QUl-Cd-7d9"/>
+                        <outlet property="yearView" destination="Rgp-9P-Tme" id="Jhf-6w-5OW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -139,7 +170,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1E5-NC-Gl3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1293.5999999999999" y="541.97901049475263"/>
+            <point key="canvasLocation" x="372" y="735"/>
         </scene>
         <!--Type Value-->
         <scene sceneID="zMc-Lz-Wkr">
@@ -211,7 +242,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SWS-Fh-CWL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1223.2" y="-197.45127436281859"/>
+            <point key="canvasLocation" x="1234" y="30"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0ZH-FJ-Yby">
@@ -247,7 +278,84 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ka-au-eJM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="516" y="792"/>
+            <point key="canvasLocation" x="-466" y="736"/>
+        </scene>
+        <!--Day View-->
+        <scene sceneID="sV2-5X-9is">
+            <objects>
+                <viewController id="Hdo-Of-JFa" customClass="DayView" customModule="CarLog" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0X6-Bl-wHK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="567"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NJx-wS-aPB" customClass="FSCalendar">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="243"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="NJx-wS-aPB" secondAttribute="height" multiplier="125:81" id="2SR-6s-QB8"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="NJx-wS-aPB" firstAttribute="top" secondItem="0X6-Bl-wHK" secondAttribute="top" id="HIs-HU-yk2"/>
+                            <constraint firstAttribute="trailing" secondItem="NJx-wS-aPB" secondAttribute="trailing" id="l0e-qh-K6f"/>
+                            <constraint firstItem="NJx-wS-aPB" firstAttribute="leading" secondItem="0X6-Bl-wHK" secondAttribute="leading" id="ukc-et-zzK"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="calendar" destination="NJx-wS-aPB" id="7eV-c1-3Gg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UKx-Nf-kd3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-706" y="-727"/>
+        </scene>
+        <!--Month View-->
+        <scene sceneID="Vfm-wN-nDl">
+            <objects>
+                <viewController id="xUY-ex-E81" customClass="MonthView" customModule="CarLog" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6ds-QB-O8I">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="567"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Month View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JI5-gT-HG3">
+                                <rect key="frame" x="91" y="241" width="193" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yOt-Zw-1Th" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="48.799999999999997" y="-727.28635682158927"/>
+        </scene>
+        <!--Year View-->
+        <scene sceneID="2EU-vD-2vu">
+            <objects>
+                <viewController id="Nux-FM-ZLc" customClass="YearView" customModule="CarLog" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Dfh-BC-quH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="567"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Year View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E3J-8z-uwe">
+                                <rect key="frame" x="105" y="273" width="165" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tlU-rn-RjY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="797.60000000000002" y="-727.28635682158927"/>
         </scene>
     </scenes>
 </document>
