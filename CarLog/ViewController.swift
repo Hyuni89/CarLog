@@ -7,6 +7,33 @@ class ViewController: UIViewController {
     @IBOutlet weak var dayView: UIView!
     @IBOutlet weak var monthView: UIView!
     @IBOutlet weak var yearView: UIView!
+    @IBOutlet weak var viewConstraint: NSLayoutConstraint!
+    @IBOutlet weak var sideView: UIView!
+    let INITIALSIDEVIEW: CGFloat = -205
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        sideView.layer.shadowColor = UIColor.black.cgColor
+        sideView.layer.shadowOpacity = 0.8
+        sideView.layer.shadowOffset = CGSize(width: 1, height: 0)
+        viewConstraint.constant = INITIALSIDEVIEW
+        
+        addViewController = storyboard?.instantiateViewController(withIdentifier: "typeValue") as? TypeValue
+        addViewController?.delegate = self
+        carListController = storyboard?.instantiateViewController(withIdentifier: "carList") as? CarList
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let defaultCar = UserDefaults.standard.object(forKey: "DefaultCar")
+        print(defaultCar)
+        if defaultCar == nil {
+            self.navigationController?.pushViewController(carListController!, animated: true)
+        }
+        car = Car()
+    }
     
     @IBAction func changeView(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
@@ -30,28 +57,10 @@ class ViewController: UIViewController {
             break
         }
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        addViewController = storyboard?.instantiateViewController(withIdentifier: "typeValue") as? TypeValue
-        addViewController?.delegate = self
-        carListController = storyboard?.instantiateViewController(withIdentifier: "carList") as? CarList
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        let defaultCar = UserDefaults.standard.object(forKey: "DefaultCar")
-        print(defaultCar)
-        if defaultCar == nil {
-            self.navigationController?.pushViewController(carListController!, animated: true)
-        }
-        car = Car()
-    }
 
-    @IBAction func selectCar(_ sender: Any) {
-        self.navigationController?.pushViewController(carListController!, animated: true)
-    }
+//    @IBAction func selectCar(_ sender: Any) {
+//        self.navigationController?.pushViewController(carListController!, animated: true)
+//    }
     
     @IBAction func addCost(_ sender: Any) {
         self.navigationController?.pushViewController(addViewController!, animated: true)
@@ -64,6 +73,68 @@ class ViewController: UIViewController {
 
     func sendData(data: Data) {
         car?.addData(data: data)
+    }
+    
+    @IBAction func panPerform(_ sender: UIPanGestureRecognizer) {
+        if sender.state == .began || sender.state == .changed {
+            let trans = sender.translation(in: self.view).x
+            
+            if trans > 0 {
+                if viewConstraint.constant < 20 {
+                    UIView.animate(withDuration: 0.2, animations: {
+                        if self.viewConstraint.constant < 0 {
+                            self.viewConstraint.constant += trans / 10
+                        } else {
+                            self.viewConstraint.constant = 0
+                        }
+                        self.view.layoutIfNeeded()
+                    })
+                }
+            } else {
+                if viewConstraint.constant > INITIALSIDEVIEW {
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.viewConstraint.constant += trans / 10
+                        self.view.layoutIfNeeded()
+                    })
+                }
+            }
+        } else if sender.state == .ended {
+            if viewConstraint.constant < -100 {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.viewConstraint.constant = self.INITIALSIDEVIEW
+                    self.view.layoutIfNeeded()
+                })
+            } else {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.viewConstraint.constant = 0
+                    self.view.layoutIfNeeded()
+                })
+            }
+        }
+    }
+    
+    @IBAction func toggleSideMenu(_ sender: UIBarButtonItem) {
+        if viewConstraint.constant == 0 {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.viewConstraint.constant = self.INITIALSIDEVIEW
+                self.view.layoutIfNeeded()
+            })
+        } else {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.viewConstraint.constant = 0
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+    
+    @IBAction func tapGesture(_ sender: UITapGestureRecognizer) {
+        let touchPoint = sender.location(in: self.view)
+        if viewConstraint.constant == 0 && touchPoint.x > -self.INITIALSIDEVIEW {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.viewConstraint.constant = self.INITIALSIDEVIEW
+                self.view.layoutIfNeeded()
+            })
+        }
     }
 }
 
