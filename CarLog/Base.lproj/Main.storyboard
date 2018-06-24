@@ -57,7 +57,10 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="8r4-dg-MSc"/>
                                         </constraints>
-                                        <state key="normal" title="Button"/>
+                                        <state key="normal" title="Car Lists"/>
+                                        <connections>
+                                            <action selector="showCarList:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EiF-hL-aQ0"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -335,22 +338,31 @@
                                     <constraint firstAttribute="width" secondItem="NJx-wS-aPB" secondAttribute="height" multiplier="125:81" id="2SR-6s-QB8"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CUN-hn-ach">
+                                <rect key="frame" x="0.0" y="217" width="335" height="350"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="wQ0-3h-MbC" firstAttribute="bottom" secondItem="CUN-hn-ach" secondAttribute="bottom" id="EN7-zh-BeG"/>
                             <constraint firstItem="NJx-wS-aPB" firstAttribute="top" secondItem="0X6-Bl-wHK" secondAttribute="top" id="HIs-HU-yk2"/>
+                            <constraint firstItem="CUN-hn-ach" firstAttribute="leading" secondItem="wQ0-3h-MbC" secondAttribute="leading" id="Qcb-Gp-oY4"/>
+                            <constraint firstItem="CUN-hn-ach" firstAttribute="top" secondItem="NJx-wS-aPB" secondAttribute="bottom" id="Wpp-ze-OJK"/>
                             <constraint firstAttribute="trailing" secondItem="NJx-wS-aPB" secondAttribute="trailing" id="l0e-qh-K6f"/>
+                            <constraint firstItem="wQ0-3h-MbC" firstAttribute="trailing" secondItem="CUN-hn-ach" secondAttribute="trailing" id="qBc-he-KuO"/>
                             <constraint firstItem="NJx-wS-aPB" firstAttribute="leading" secondItem="0X6-Bl-wHK" secondAttribute="leading" id="ukc-et-zzK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wQ0-3h-MbC"/>
                     </view>
                     <connections>
                         <outlet property="calendar" destination="NJx-wS-aPB" id="7eV-c1-3Gg"/>
+                        <outlet property="costTableView" destination="CUN-hn-ach" id="fhz-Nx-gK8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UKx-Nf-kd3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-706" y="-727"/>
+            <point key="canvasLocation" x="-706.39999999999998" y="-727.28635682158927"/>
         </scene>
         <!--Month View-->
         <scene sceneID="Vfm-wN-nDl">

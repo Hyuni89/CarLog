@@ -26,13 +26,14 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewConstraint.constant = INITIALSIDEVIEW
         
         let defaultCar = UserDefaults.standard.object(forKey: "DefaultCar")
         print(defaultCar)
         if defaultCar == nil {
             self.navigationController?.pushViewController(carListController!, animated: true)
         }
-        car = Car()
+        loadCar()
     }
     
     @IBAction func changeView(_ sender: UISegmentedControl) {
@@ -58,10 +59,6 @@ class ViewController: UIViewController {
         }
     }
 
-//    @IBAction func selectCar(_ sender: Any) {
-//        self.navigationController?.pushViewController(carListController!, animated: true)
-//    }
-    
     @IBAction func addCost(_ sender: Any) {
         self.navigationController?.pushViewController(addViewController!, animated: true)
     }
@@ -135,6 +132,14 @@ class ViewController: UIViewController {
                 self.view.layoutIfNeeded()
             })
         }
+    }
+    
+    @IBAction func showCarList(_ sender: UIButton) {
+        self.navigationController?.pushViewController(carListController!, animated: true)
+    }
+    
+    func loadCar() {
+        car = Car()
     }
 }
 
