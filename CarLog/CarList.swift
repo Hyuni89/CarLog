@@ -134,6 +134,10 @@ class CarList: UITableViewController {
                 alert.addAction(confirm)
                 self.present(alert, animated: true)
             } else {
+                let carData = CarDataHandler.getInstance.getList(name: (self.cars[indexPath.row].value(forKeyPath: "name") as? String)!)
+                for data in carData {
+                    data.delete()
+                }
                 CarListHandler.getInstance.deleteData(name: (self.cars[indexPath.row].value(forKeyPath: "name") as? String)!, year: (self.cars[indexPath.row].value(forKeyPath: "year") as? Int)!)
                 self.cars.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)

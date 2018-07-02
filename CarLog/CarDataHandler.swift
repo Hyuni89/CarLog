@@ -29,4 +29,17 @@ class CarDataHandler {
         
         return ret
     }
+    
+    func getAllList() -> [NSManagedObject] {
+        let request = NSFetchRequest<NSManagedObject>(entityName: "CarData")
+        var car: [NSManagedObject]? = nil
+        
+        do {
+            car = try context?.fetch(request)
+        } catch let error as NSError {
+            print("Could not Save. \(error), \(error.userInfo)")
+        }
+        
+        return car!
+    }
 }

@@ -168,7 +168,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Qy-Yl-xaP">
                                             <rect key="frame" x="302" y="25" width="57" height="28"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="57" id="xbG-Ve-X1j"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="57" id="xbG-Ve-X1j"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -366,9 +366,9 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v3K-9R-N4m">
-                                                    <rect key="frame" x="262" y="25" width="57" height="28"/>
+                                                    <rect key="frame" x="262" y="25" width="58" height="28"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="57" id="HTb-5L-Z1x"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="57" id="HTb-5L-Z1x"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>

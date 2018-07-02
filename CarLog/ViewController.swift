@@ -29,11 +29,20 @@ class ViewController: UIViewController {
         viewConstraint.constant = INITIALSIDEVIEW
         
         let defaultCar = UserDefaults.standard.object(forKey: "DefaultCar")
-        print(defaultCar)
+//        print(defaultCar)
         if defaultCar == nil {
             self.navigationController?.pushViewController(carListController!, animated: true)
         }
         loadCar()
+        
+//        let tmpLog = CarDataHandler.getInstance.getAllList()
+//        for tmp in tmpLog {
+//            let tmpname = tmp.value(forKeyPath: "car") as! String
+//            let tmpdistance = tmp.value(forKeyPath: "distance")
+//            let tmpfuel = tmp.value(forKeyPath: "fuel")
+//            let tmpprice = tmp.value(forKeyPath: "price")
+//            print(tmpname, tmpdistance, tmpfuel, tmpprice)
+//        }
     }
     
     @IBAction func changeView(_ sender: UISegmentedControl) {
@@ -42,19 +51,19 @@ class ViewController: UIViewController {
             dayView.isHidden = false
             monthView.isHidden = true
             yearView.isHidden = true
-            print("1segment")
+//            print("1segment")
         case 1:
             dayView.isHidden = true
             monthView.isHidden = false
             yearView.isHidden = true
-            print("2segment")
+//            print("2segment")
         case 2:
             dayView.isHidden = true
             monthView.isHidden = true
             yearView.isHidden = false
-            print("3segment")
+//            print("3segment")
         default:
-            print("Error")
+//            print("Error")
             break
         }
     }

@@ -7,12 +7,26 @@ extension DayView: UITableViewDataSource, UITableViewDelegate {
         cell.carName.text = String(describing: (carData?[indexPath.row].mDistance)!)
         cell.carInfo.text = String(describing: (carData?[indexPath.row].mFuel)!)
         cell.defaultFlag.text = "-" + String(describing: (carData?[indexPath.row].mPrice)!)
+        cell.defaultFlag.textColor = UIColor.red
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (carData?.count)!
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let edit = UITableViewRowAction(style: .default, title: "Edit") {(action, indexPath) in
+            
+        }
+        edit.backgroundColor = UIColor.blue
+        
+        let delete = UITableViewRowAction(style: .default, title: "Delete") {(action, indexPath) in
+            
+        }
+        
+        return [delete, edit]
     }
 }
 

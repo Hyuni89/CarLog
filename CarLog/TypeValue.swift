@@ -12,7 +12,7 @@ class TypeValue: UIViewController {
         let dis = Double(disfield.text! == "" ? "0" : disfield.text!)!
         let fuel = Double(fuelfield.text! == "" ? "0" : fuelfield.text!)!
         let price = Int(pricefield.text! == "" ? "0" : pricefield.text!)!
-        print("[\(dis)][\(fuel)][\(price)]")
+//        print("[\(dis)][\(fuel)][\(price)]")
         
         let data = Data()
         data.mDistance = dis
@@ -21,5 +21,14 @@ class TypeValue: UIViewController {
         data.save()
         delegate?.sendData(data: data)
         navigationController?.popViewController(animated: true)
+        print(Date())
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        disfield.text = ""
+        fuelfield.text = ""
+        pricefield.text = ""
     }
 }
