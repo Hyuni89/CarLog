@@ -17,6 +17,21 @@ class Data {
             mObject?.setValue(mPrice, forKeyPath: "price")
         }
     }
+    var mComment: String? {
+        didSet {
+            mObject?.setValue(mComment, forKeyPath: "comment")
+        }
+    }
+    var mEffi: Double? {
+        didSet {
+            mObject?.setValue(mEffi, forKeyPath: "efficience")
+        }
+    }
+    var mDate: Date? {
+        didSet {
+            mObject?.setValue(mDate, forKeyPath: "date")
+        }
+    }
     var mObject: NSManagedObject?
     
     init() {
@@ -26,6 +41,9 @@ class Data {
         mDistance = 0
         mPrice = 0
         mFuel = 0
+        mComment = ""
+        mEffi = 0
+        mDate = Date()
     }
     
     init(object: NSManagedObject) {
@@ -33,6 +51,9 @@ class Data {
         mDistance = mObject?.value(forKeyPath: "distance") as! Double
         mFuel = mObject?.value(forKeyPath: "fuel") as! Double
         mPrice = mObject?.value(forKeyPath: "price") as! Int
+        mComment = mObject?.value(forKeyPath: "comment") as? String
+        mEffi = mObject?.value(forKeyPath: "efficience") as? Double
+        mDate = mObject?.value(forKeyPath: "date") as? Date
     }
     
     func save() {

@@ -4,10 +4,12 @@ import UIKit
 extension DayView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "carListCell", for: indexPath) as! CarListCell
-        cell.carName.text = String(describing: (carData?[indexPath.row].mDistance)!)
-        cell.carInfo.text = String(describing: (carData?[indexPath.row].mFuel)!)
+        cell.carName.text = carData?[indexPath.row].mComment
+        cell.carInfo.text = String(describing: carData?[indexPath.row].mDate)
+        cell.carInfo.textColor = UIColor.gray
         cell.defaultFlag.text = "-" + String(describing: (carData?[indexPath.row].mPrice)!)
         cell.defaultFlag.textColor = UIColor.red
+        cell.defaultFlag.textAlignment = .right
         
         return cell
     }
